@@ -121,7 +121,7 @@ Twelve slides. Designed for a five-minute pitch plus three minutes of Q&A. Every
 
 ## Speaker notes
 
-- Do not say "hackathon" anywhere in the deck or the demo.
+- Keep the deck and demo free of event names.
 - Never present recorded evidence as live. If asked, show the mode chip and the capture date.
 - If Bifrost is down during the demo, the report says `direct`. Do not hide it.
 - The gauge colour fix and the stamp are the visual hooks; spend five seconds on each.
