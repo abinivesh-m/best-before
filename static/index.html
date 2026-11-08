@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Best Before — every AI answer gets an expiry date</title>
+<meta name="description" content="Paste an AI answer. Best Before splits it into claims, re-verifies each one against current web sources, and scores how much of it still holds.">
+<meta name="theme-color" content="#f4f1ea">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2316150f'/%3E%3Cpath d='M8 10h16M8 16h10M8 22h8' stroke='%23f4f1ea' stroke-width='2.4' stroke-linecap='round'/%3E%3Ccircle cx='23' cy='22' r='4.2' fill='none' stroke='%23f0b429' stroke-width='1.8'/%3E%3Cpath d='M23 20.2v2.2l1.6 1' stroke='%23f0b429' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="/" aria-label="Best Before home">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M7.5 10h17M7.5 15.5h10.5M7.5 21h7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="23" cy="22" r="4.6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M23 19.9v2.4l1.7 1.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-name">Best&nbsp;Before</span>
+    </a>
+    <p class="brand-line">Every AI answer gets an expiry date.</p>
+    <div class="chips" id="mode-chips" aria-label="Active modes">
+      <span class="chip" id="chip-evidence"><span class="dot"></span><span>Checking modes…</span></span>
+      <span class="chip" id="chip-gateway"><span class="dot"></span><span>Gateway</span></span>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <section class="intro">
+    <div class="intro-copy">
+      <p class="eyebrow">Freshness verification for generated text</p>
+      <h1>Paste an answer.<br>Find out what has expired.</h1>
+      <p class="lede">Language models write confidently from a snapshot of the past. Best Before splits an answer into factual claims, checks each one against current sources, and gives the whole answer a freshness score and an expiry date.</p>
+    </div>
+    <aside class="intro-note" aria-label="What it checks">
+      <p class="note-label">Built for claims that move</p>
+      <ul>
+        <li><span>01</span>API versions &amp; deprecations</li>
+        <li><span>02</span>Pricing and plan limits</li>
+        <li><span>03</span>Regulation &amp; effective dates</li>
+        <li><span>04</span>Company and product facts</li>
+      </ul>
+    </aside>
+  </section>
+
+  <section class="workspace" aria-label="Check an answer">
+    <div class="panel input-panel">
+      <div class="panel-head">
+        <h2>Answer under test</h2>
+        <span class="meta" id="char-count">0 characters</span>
+      </div>
+
+      <div class="samples" id="samples" aria-label="Sample answers"></div>
+
+      <label class="sr-only" for="answer">AI-generated answer</label>
+      <textarea id="answer" spellcheck="false" placeholder="Paste an AI-generated answer here. Best Before will pull out the claims worth checking."></textarea>
+
+      <div class="input-foot">
+        <p class="hint" id="input-hint">Load a sample, or paste your own answer.</p>
+        <div class="actions">
+          <button class="btn ghost" id="clear" type="button">Clear</button>
+          <button class="btn primary" id="check" type="button">
+            <span class="btn-label">Check freshness</span>
+            <span class="kbd" aria-hidden="true">⌘↵</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <aside class="panel verdict-panel" id="verdict" aria-live="polite" aria-busy="false">
+      <div class="empty-verdict">
+        <div class="empty-mark" aria-hidden="true">
+          <svg viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="47" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 7"/>
+            <path d="M60 33v27l17 10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+            <circle cx="60" cy="60" r="4" fill="currentColor"/>
+          </svg>
+        </div>
+        <h2>No answer checked yet</h2>
+        <p>The verdict, the expiry date, and every source will appear here.</p>
+      </div>
+    </aside>
+  </section>
+
+  <section class="claims-section" id="claims-section" hidden>
+    <div class="section-head">
+      <h2>Claim by claim</h2>
+      <div class="legend" aria-label="Legend">
+        <span data-status="current"><i></i>Current</span>
+        <span data-status="uncertain"><i></i>Recheck</span>
+        <span data-status="stale"><i></i>Stale</span>
+        <span data-status="unverified"><i></i>Unverified</span>
+      </div>
+    </div>
+    <div class="claims" id="claims"></div>
+  </section>
+
+  <section class="method" aria-label="How the score works">
+    <div class="method-head">
+      <p class="eyebrow">No black box</p>
+      <h2>How the score is built</h2>
+      <p>Each claim gets three readings. They are combined with fixed weights, so you can see exactly why something was flagged.</p>
+    </div>
+    <div class="method-grid">
+      <article class="method-card">
+        <span class="method-num">0.60</span>
+        <h3>Agreement</h3>
+        <p>Do the sources state the same value, a different one, or nothing at all? Contradictions from official documentation carry the most weight.</p>
+      </article>
+      <article class="method-card">
+        <span class="method-num">0.25</span>
+        <h3>Recency</h3>
+        <p>Publication dates decay on a half-life set by claim type: weeks for pricing, months for versions, a year for regulation.</p>
+      </article>
+      <article class="method-card">
+        <span class="method-num">0.15</span>
+        <h3>Authority</h3>
+        <p>Primary documentation outranks vendor blogs, which outrank press, which outranks forums. The domain tier is shown on every source.</p>
+      </article>
+    </div>
+    <div class="threshold-note">
+      <span><b>≥ 0.72</b> current</span>
+      <span><b>0.45–0.72</b> recheck</span>
+      <span><b>&lt; 0.45</b> stale</span>
+      <span class="muted">A stale claim in a high-impact category expires the whole answer.</span>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <p><strong>Best Before</strong> · factual freshness, not a truth oracle.</p>
+    <p>Sources are cited, scores are inspectable, and every mode is labelled. <a href="https://github.com/abinivesh-m/best-before" rel="noopener">Source</a></p>
+  </div>
+</footer>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

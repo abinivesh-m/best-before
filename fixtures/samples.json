@@ -1,0 +1,470 @@
+{
+  "recorded_on": "2026-11-08",
+  "capture": "Snippets and publication dates were read from each cited page on 8 Nov 2026. Stances were assigned by reading that page against the claim. With TAVILY_API_KEY set, the app ignores these and searches live; scripts/record_fixtures.py can refresh them.",
+  "samples": [
+    {
+      "id": "stack-2023",
+      "title": "The 2023 setup guide",
+      "written": "2023-06-12",
+      "blurb": "A typical starter answer. Every version in it has moved.",
+      "expected": "expired",
+      "answer": "Here is the setup I recommend for a new Python + Node project in 2023.\n\nRuntime: Python 3.12 is the latest stable release, so pin your Docker image to python:3.12-slim. On the Node side, Node.js 18 is the Active LTS release and is the safest choice for production.\n\nCI: keep your workflows in .github/workflows. Use actions/checkout@v3 to check out the repository. The ubuntu-latest runner currently maps to Ubuntu 20.04, so you can rely on its preinstalled toolchain.\n\nDatabase: PostgreSQL 15 is the newest major version. Install 15.4, the current minor release, and you are on the latest supported build.\n\nSDK: create a virtual environment with python -m venv .venv, then call the OpenAI API with openai.ChatCompletion.create(model=\"gpt-4\", messages=[...]). The openai package handles the HTTP call for you.",
+      "claims": [
+        {
+          "id": "c1",
+          "text": "Python 3.12 is the latest stable release.",
+          "kind": "version",
+          "query": "latest stable Python release version python.org",
+          "value": "3.12",
+          "current_value": "Python 3.15.2 is the current release (25 Oct 2026). Python 3.12 is in security-only maintenance.",
+          "recorded_note": "Python has shipped three major versions since 3.12. The answer is two years behind.",
+          "sources": [
+            {
+              "title": "Download Python",
+              "url": "https://www.python.org/downloads/",
+              "content": "Download Python 3.15.2. Active Python releases: 3.16 pre-release; 3.15 bugfix, first released 2026-10-09; 3.14 bugfix, 2025-10-07; 3.13 security; 3.12 security; 3.11 security; 3.10 end-of-life.",
+              "published_date": "2026-10-25",
+              "score": 0.95,
+              "stance": "contradicts",
+              "match": 1.0
+            },
+            {
+              "title": "Python 3.15.2",
+              "url": "https://www.python.org/downloads/release/python-3152/",
+              "content": "Python 3.15.2. Release date: Oct. 25, 2026. This is the second maintenance release of Python 3.15.",
+              "published_date": "2026-10-25",
+              "score": 0.9,
+              "stance": "contradicts",
+              "match": 1.0
+            }
+          ]
+        },
+        {
+          "id": "c2",
+          "text": "Node.js 18 is the Active LTS release.",
+          "kind": "version",
+          "query": "Node.js active LTS version release schedule",
+          "value": "18",
+          "current_value": "Node.js 26 is the Active LTS (since 28 Oct 2026). Node 18 reached end-of-life on 30 Apr 2025.",
+          "recorded_note": "Node 18 is not merely superseded - it has been unsupported for more than a year.",
+          "sources": [
+            {
+              "title": "Node.js release schedule",
+              "url": "https://raw.githubusercontent.com/nodejs/Release/main/schedule.json",
+              "content": "v18: lts 2022-10-25, maintenance 2023-10-18, end 2025-04-30. v24: lts 2025-10-28, maintenance 2026-10-20, end 2028-04-30. v26: start 2026-05-05, lts 2026-10-28, end 2029-04-30, codename Lithium.",
+              "published_date": null,
+              "score": 0.9,
+              "stance": "contradicts",
+              "match": 1.0
+            },
+            {
+              "title": "Node.js previous releases",
+              "url": "https://nodejs.org/en/about/previous-releases",
+              "content": "Node.js 26 is the current LTS release. Node.js 24 is in maintenance. Node.js 18 is end-of-life and no longer supported.",
+              "published_date": null,
+              "score": 0.82,
+              "stance": "contradicts",
+              "match": 1.0
+            }
+          ]
+        },
+        {
+          "id": "c3",
+          "text": "Use actions/checkout@v3 to check out the repository.",
+          "kind": "version",
+          "query": "actions/checkout latest release version",
+          "value": "v3",
+          "current_value": "actions/checkout v7.0.1 is current (20 Jul 2026). v3 is four majors behind.",
+          "recorded_note": "Pinned major versions are the most common stale line in AI-written CI files.",
+          "sources": [
+            {
+              "title": "actions/checkout v7.0.1",
+              "url": "https://github.com/actions/checkout/releases/tag/v7.0.1",
+              "content": "v7.0.1. Published 20 Jul 2026. Latest release of the checkout action.",
+              "published_date": "2026-07-20",
+              "score": 0.93,
+              "stance": "contradicts",
+              "match": 1.0
+            },
+            {
+              "title": "actions/checkout",
+              "url": "https://github.com/actions/checkout",
+              "content": "Checkout v7. Latest release: v7.0.1.",
+              "published_date": null,
+              "score": 0.8,
+              "stance": "contradicts",
+              "match": 0.9
+            }
+          ]
+        },
+        {
+          "id": "c4",
+          "text": "The ubuntu-latest runner currently maps to Ubuntu 20.04.",
+          "kind": "version",
+          "query": "GitHub Actions ubuntu-latest runner image version",
+          "value": "20.04",
+          "current_value": "ubuntu-latest maps to Ubuntu 24.04. Ubuntu 26.04 is available as ubuntu-26.04; Ubuntu 20.04 has been retired.",
+          "recorded_note": "The label moved twice. The answer names an image that no longer exists.",
+          "sources": [
+            {
+              "title": "GitHub Actions runner images",
+              "url": "https://github.com/actions/runner-images/blob/main/README.md",
+              "content": "Available images include Ubuntu 26.04 (ubuntu-26.04), Ubuntu 24.04 (ubuntu-latest or ubuntu-24.04), and Ubuntu 22.04 (ubuntu-22.04). Ubuntu 20.04 is no longer listed.",
+              "published_date": null,
+              "score": 0.92,
+              "stance": "contradicts",
+              "match": 1.0
+            }
+          ]
+        },
+        {
+          "id": "c5",
+          "text": "PostgreSQL 15 is the newest major version, and 15.4 is the current minor release.",
+          "kind": "version",
+          "query": "latest PostgreSQL major version current minor release",
+          "value": "15 / 15.4",
+          "current_value": "PostgreSQL 18 is the current major version; the latest 18.x is 18.6 (11 Aug 2026). The latest 15.x is 15.19.",
+          "recorded_note": "Both halves of the claim moved: the major line and the minor release.",
+          "sources": [
+            {
+              "title": "PostgreSQL versioning policy",
+              "url": "https://www.postgresql.org/support/versioning/",
+              "content": "PostgreSQL 18 was released on 25 September 2025. Each major release is supported for five years, with minor releases published quarterly.",
+              "published_date": null,
+              "score": 0.9,
+              "stance": "contradicts",
+              "match": 1.0
+            },
+            {
+              "title": "PostgreSQL end-of-life dates",
+              "url": "https://endoflife.date/postgresql",
+              "content": "18: released 2025-09-25, latest 18.6 on 2026-08-11. 15: latest 15.19 on 2026-08-10, supported until 2027-11-11.",
+              "published_date": null,
+              "score": 0.85,
+              "stance": "contradicts",
+              "match": 1.0
+            }
+          ]
+        },
+        {
+          "id": "c6",
+          "text": "Call the OpenAI API with openai.ChatCompletion.create(...).",
+          "kind": "version",
+          "query": "OpenAI Python SDK chat completions current usage",
+          "value": "openai.ChatCompletion.create",
+          "current_value": "The v1+ SDK exposes client.chat.completions.create. The old openai.ChatCompletion interface was removed in v1.0 (Nov 2023).",
+          "recorded_note": "This code does not run at all on any current SDK version.",
+          "sources": [
+            {
+              "title": "openai-python README",
+              "url": "https://github.com/openai/openai-python",
+              "content": "from openai import OpenAI; client = OpenAI(); completion = client.chat.completions.create(model=gpt-5.5, messages=[{role: developer}, {role: user}]).",
+              "published_date": null,
+              "score": 0.92,
+              "stance": "contradicts",
+              "match": 1.0
+            },
+            {
+              "title": "OpenAI API reference: Chat",
+              "url": "https://platform.openai.com/docs/api-reference/chat",
+              "content": "POST /v1/chat/completions. Creates a model response for the given chat conversation.",
+              "published_date": null,
+              "score": 0.8,
+              "stance": "contradicts",
+              "match": 0.8
+            }
+          ]
+        },
+        {
+          "id": "c7",
+          "text": "GitHub Actions workflows live in .github/workflows.",
+          "kind": "other",
+          "query": "GitHub Actions workflow file location",
+          "value": ".github/workflows",
+          "current_value": ".github/workflows is still the required location.",
+          "recorded_note": "Unchanged. The checker should not flag stable facts.",
+          "sources": [
+            {
+              "title": "GitHub Actions workflow syntax",
+              "url": "https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax",
+              "content": "Workflow files use YAML syntax and must be stored in the .github/workflows directory of your repository.",
+              "published_date": null,
+              "score": 0.9,
+              "stance": "supports",
+              "match": 1.0
+            }
+          ]
+        },
+        {
+          "id": "c8",
+          "text": "Create a virtual environment with python -m venv .venv.",
+          "kind": "other",
+          "query": "Python venv create environment python -m venv",
+          "value": "python -m venv",
+          "current_value": "python -m venv is still the standard way to create a virtual environment.",
+          "recorded_note": "Unchanged. No false positive.",
+          "sources": [
+            {
+              "title": "venv: creation of virtual environments",
+              "url": "https://docs.python.org/3/library/venv.html",
+              "content": "python -m venv /path/to/new/virtual/environment creates a virtual environment.",
+              "published_date": null,
+              "score": 0.9,
+              "stance": "supports",
+              "match": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pg-upgrade",
+      "title": "The Postgres upgrade plan",
+      "written": "2023-11-20",
+      "blurb": "A plan that was correct when written and is now partly impossible.",
+      "expected": "expired",
+      "answer": "Upgrade plan for our analytics cluster.\n\nPostgreSQL 15 is the latest major release, so target 15.4, the current minor release. PostgreSQL 12 will be supported until November 2024, which gives us time to stage the migration.\n\nMajor versions are supported for five years, so planning in yearly windows is reasonable. Use pg_upgrade for the major-version jump; it is the supported path and avoids a dump and restore.",
+      "claims": [
+        {
+          "id": "c1",
+          "text": "PostgreSQL 15 is the latest major release.",
+          "kind": "version",
+          "query": "latest PostgreSQL major version",
+          "value": "15",
+          "current_value": "PostgreSQL 18 is the current major version (released 25 Sep 2025).",
+          "recorded_note": "Three major versions have shipped since 15.",
+          "sources": [
+            {
+              "title": "PostgreSQL end-of-life dates",
+              "url": "https://endoflife.date/postgresql",
+              "content": "18: released 2025-09-25, latest 18.6 on 2026-08-11. 17: released 2024-09-26. 16: released 2023-09-14. 15: released 2022-10-13.",
+              "published_date": null,
+              "score": 0.9,
+              "stance": "contradicts",
+              "match": 1.0
+            }
+          ]
+        },
+        {
+          "id": "c2",
+          "text": "PostgreSQL 12 will be supported until November 2024, which gives us time to stage the migration.",
+          "kind": "version",
+          "query": "PostgreSQL 12 end of life date",
+          "value": "November 2024",
+          "current_value": "PostgreSQL 12 reached end-of-life on 21 Nov 2024 and no longer receives fixes.",
+          "recorded_note": "The future tense is now false: the support window has closed.",
+          "sources": [
+            {
+              "title": "PostgreSQL end-of-life dates",
+              "url": "https://endoflife.date/postgresql",
+              "content": "12: released 2019-10-03, latest 12.22 on 2024-11-18, eol 2024-11-21. PostgreSQL 12 is end-of-life and receives no further fixes.",
+              "published_date": null,
+              "score": 0.9,
+              "stance": "contradicts",
+              "match": 1.0
+            },
+            {
+              "title": "PostgreSQL versioning policy",
+              "url": "https://www.postgresql.org/support/versioning/",
+              "content": "PostgreSQL 12 is no longer supported. Each major release is supported for five years from its initial release.",
+              "published_date": null,
+              "score": 0.85,
+              "stance": "contradicts",
+              "match": 0.9
+            }
+          ]
+        },
+        {
+          "id": "c3",
+          "text": "15.4 is the current minor release of PostgreSQL 15.",
+          "kind": "version",
+          "query": "latest PostgreSQL 15 minor release",
+          "value": "15.4",
+          "current_value": "The latest PostgreSQL 15 minor release is 15.19 (10 Aug 2026).",
+          "recorded_note": "Minor releases are quarterly, so this figure ages quickly.",
+          "sources": [
+            {
+              "title": "PostgreSQL end-of-life dates",
+              "url": "https://endoflife.date/postgresql",
+              "content": "15: latest 15.19 on 2026-08-10, supported until 2027-11-11.",
+              "published_date": null,
+              "score": 0.9,
+              "stance": "contradicts",
+              "match": 1.0
+            }
+          ]
+        },
+        {
+          "id": "c4",
+          "text": "Major versions are supported for five years.",
+          "kind": "other",
+          "query": "PostgreSQL major version support policy five years",
+          "value": "five years",
+          "current_value": "Still correct: each major release gets five years of support.",
+          "recorded_note": "A stable policy, not a moving fact.",
+          "sources": [
+            {
+              "title": "PostgreSQL versioning policy",
+              "url": "https://www.postgresql.org/support/versioning/",
+              "content": "Each major release is supported for five years from its initial release.",
+              "published_date": null,
+              "score": 0.9,
+              "stance": "supports",
+              "match": 1.0
+            }
+          ]
+        },
+        {
+          "id": "c5",
+          "text": "pg_upgrade is the supported path for major-version upgrades.",
+          "kind": "other",
+          "query": "PostgreSQL pg_upgrade supported major version upgrade",
+          "value": "pg_upgrade",
+          "current_value": "Still correct: pg_upgrade remains the in-place major-version upgrade tool.",
+          "recorded_note": "Unchanged.",
+          "sources": [
+            {
+              "title": "pg_upgrade",
+              "url": "https://www.postgresql.org/docs/current/pgupgrade.html",
+              "content": "pg_upgrade allows an installation to be migrated in-place from one major PostgreSQL version to the next.",
+              "published_date": null,
+              "score": 0.88,
+              "stance": "supports",
+              "match": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai-act",
+      "title": "The EU AI Act briefing",
+      "written": "2026-02-10",
+      "blurb": "Mostly right, with two assumptions that would fail a compliance review.",
+      "expected": "needs_correction",
+      "answer": "The AI Act entered into force on 1 August 2024 and applies in stages.\n\nProhibited practices have been banned since 2 February 2025. Obligations for general-purpose AI models have applied since 2 August 2025. High-risk obligations for Annex III systems apply from 2 August 2026.\n\nThe Act only applies to providers established in the European Union, and companies have until 2027 to comply with every part of the Act.",
+      "claims": [
+        {
+          "id": "c1",
+          "text": "The AI Act entered into force on 1 August 2024.",
+          "kind": "regulation",
+          "query": "EU AI Act entry into force date",
+          "value": "1 August 2024",
+          "current_value": "Correct: the Act entered into force on 1 August 2024.",
+          "recorded_note": "Stable date.",
+          "sources": [
+            {
+              "title": "AI Act implementation timeline",
+              "url": "https://artificialintelligenceact.eu/implementation-timeline/",
+              "content": "1 August 2024: the AI Act enters into force.",
+              "published_date": null,
+              "score": 0.92,
+              "stance": "supports",
+              "match": 1.0
+            }
+          ]
+        },
+        {
+          "id": "c2",
+          "text": "Prohibited practices have been banned since 2 February 2025.",
+          "kind": "regulation",
+          "query": "EU AI Act prohibitions apply 2 February 2025",
+          "value": "2 February 2025",
+          "current_value": "Correct: the prohibitions and AI-literacy duties apply from 2 February 2025.",
+          "recorded_note": "Stable date.",
+          "sources": [
+            {
+              "title": "AI Act implementation timeline",
+              "url": "https://artificialintelligenceact.eu/implementation-timeline/",
+              "content": "2 February 2025: prohibitions on certain AI systems and requirements on AI literacy start to apply.",
+              "published_date": null,
+              "score": 0.92,
+              "stance": "supports",
+              "match": 1.0
+            }
+          ]
+        },
+        {
+          "id": "c3",
+          "text": "Obligations for general-purpose AI models have applied since 2 August 2025.",
+          "kind": "regulation",
+          "query": "EU AI Act general-purpose AI obligations 2 August 2025",
+          "value": "2 August 2025",
+          "current_value": "Correct: GPAI model rules, governance, and certain penalties apply from 2 August 2025.",
+          "recorded_note": "Stable date.",
+          "sources": [
+            {
+              "title": "AI Act implementation timeline",
+              "url": "https://artificialintelligenceact.eu/implementation-timeline/",
+              "content": "2 August 2025: rules for general-purpose AI models (Chapter V), governance (Chapter VII), confidentiality, and certain penalties start to apply.",
+              "published_date": null,
+              "score": 0.92,
+              "stance": "supports",
+              "match": 1.0
+            }
+          ]
+        },
+        {
+          "id": "c4",
+          "text": "High-risk obligations for Annex III systems apply from 2 August 2026.",
+          "kind": "regulation",
+          "query": "EU AI Act high-risk Annex III obligations 2 August 2026",
+          "value": "2 August 2026",
+          "current_value": "Correct: the remainder of the Act, including Annex III high-risk duties, applies from 2 August 2026. Annex I products follow on 2 August 2027.",
+          "recorded_note": "Now in force. Still accurate, but only just.",
+          "sources": [
+            {
+              "title": "AI Act implementation timeline",
+              "url": "https://artificialintelligenceact.eu/implementation-timeline/",
+              "content": "2 August 2026: the remainder of the AI Act starts to apply, which includes the high-risk obligations for Annex III systems. Annex I product obligations follow on 2 August 2027.",
+              "published_date": null,
+              "score": 0.92,
+              "stance": "supports",
+              "match": 1.0
+            }
+          ]
+        },
+        {
+          "id": "c5",
+          "text": "The Act only applies to providers established in the European Union.",
+          "kind": "regulation",
+          "query": "EU AI Act scope third country providers Article 2",
+          "value": "only EU providers",
+          "current_value": "Article 2 has extraterritorial scope: it also covers providers and deployers outside the EU where the system's output is used in the Union.",
+          "recorded_note": "This is the kind of confident simplification that fails a compliance review.",
+          "sources": [
+            {
+              "title": "AI Act Article 2: scope",
+              "url": "https://artificialintelligenceact.eu/article/2/",
+              "content": "This Regulation applies to providers of AI systems and general-purpose AI models on the Union market irrespective of whether those providers are established or located within the Union or in a third country; and to providers and deployers in a third country where the output produced by the AI system is used in the Union.",
+              "published_date": null,
+              "score": 0.95,
+              "stance": "contradicts",
+              "match": 1.0
+            }
+          ]
+        },
+        {
+          "id": "c6",
+          "text": "Companies have until 2027 to comply with every part of the Act.",
+          "kind": "regulation",
+          "query": "EU AI Act compliance deadlines staged application",
+          "value": "2027",
+          "current_value": "Compliance is staged, not deferred to 2027: bans applied in Feb 2025, GPAI rules in Aug 2025, and most remaining duties in Aug 2026.",
+          "recorded_note": "Three waves of obligations are already live. The 2027 date covers only the last slice.",
+          "sources": [
+            {
+              "title": "AI Act implementation timeline",
+              "url": "https://artificialintelligenceact.eu/implementation-timeline/",
+              "content": "Application is staged, not deferred. 2 February 2025: prohibitions apply. 2 August 2025: GPAI models, governance and certain penalties apply. 2 August 2026: the remainder of the Act applies, so most obligations are already in force. 2 August 2027 is only the date for Annex I high-risk systems. There is no single 2027 compliance deadline for every part of the Act.",
+              "published_date": null,
+              "score": 0.92,
+              "stance": "contradicts",
+              "match": 1.0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
